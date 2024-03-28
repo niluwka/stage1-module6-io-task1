@@ -11,17 +11,27 @@ import java.util.logging.Logger;
 
 
 public class FileReader {
+    interface Operationable{
+        String calculate(String x, String y);
+    }
     public static void main(String[] args) {
         File file = new File("resources/Profile.txt");
         FileReader fileReader = new FileReader();
         Profile profile = fileReader.getDataFromFile(file);
+        Operationable operation;
+        operation = (x,y)->  (x+y);
+
+        String name = operation.calculate("Name:", profile.getName());
+        String age = operation.calculate("Age:" , String.valueOf(profile.getAge()));
+        String email = operation.calculate("Email:" , profile.getEmail());
+        String phone = operation.calculate("Phone:" , String.valueOf(profile.getPhone()));
         Logger logger
                 = Logger.getLogger(
                 FileReader.class.getName());
-        logger.log(Level.INFO,"Name:" + profile.getName());
-         logger.log(Level.INFO,"Age:" + profile.getAge());
-         logger.log(Level.INFO,"Email:" + profile.getEmail());
-        logger.log(Level.INFO,"Phone:" + profile.getPhone());
+        logger.log(Level.INFO,  name);
+        logger.log(Level.INFO, age);
+        logger.log(Level.INFO, email);
+        logger.log(Level.INFO,phone );
     }
 
     private static String readFileToString(File file) {
@@ -37,37 +47,38 @@ public class FileReader {
         }
         return content.toString();
     }
-    private static Profile parseProfileData(String data){
-String [] lines = data.split("\n");
-String name = null;
-int age = 0;
-String email = null;
-long phone = 0;
 
-        for (String line:
-             lines) {
-            if (line.startsWith("Name:")){
+    private static Profile parseProfileData(String data) {
+        String[] lines = data.split("\n");
+        String name = null;
+        int age = 0;
+        String email = null;
+        long phone = 0;
+
+        for (String line :
+                lines) {
+            if (line.startsWith("Name:")) {
                 name = line.substring(6).trim();
 
-            }else if(line.startsWith("Age:")){
+            } else if (line.startsWith("Age:")) {
                 age = Integer.parseInt(line.substring(5).trim());
 
             } else if (line.startsWith("Email:")) {
                 email = line.substring(7).trim();
-                
-                
+
+
             } else if (line.startsWith("Phone:")) {
-               phone = Long.parseLong(line.substring(7).trim());
+                phone = Long.parseLong(line.substring(7).trim());
 
             }
         }
-        return new Profile(name,age,email,phone);
+        return new Profile(name, age, email, phone);
     }
 
     public static Profile getDataFromFile(File file) {
 
-String fileContent = readFileToString(file);
-Profile profile = parseProfileData(fileContent);
+        String fileContent = readFileToString(file);
+        Profile profile = parseProfileData(fileContent);
         return profile;
     }
 }
