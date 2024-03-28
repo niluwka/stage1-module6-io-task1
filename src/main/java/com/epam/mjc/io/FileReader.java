@@ -14,8 +14,10 @@ public class FileReader {
     interface Operationable{
         String calculate(String x, String y);
     }
-    public static void main(String[] args) {
-        File file = new File("resources/Profile.txt");
+    public static void main(String[] args) throws FileNotFoundException {
+
+        File file = new File("/Users/Admin/IdeaProjects/stage1-module6-io-task01/src/main/resources/Profile.txt");
+        FileInputStream input = new FileInputStream(file);
         FileReader fileReader = new FileReader();
         Profile profile = fileReader.getDataFromFile(file);
         Operationable operation;
