@@ -1,27 +1,27 @@
 package com.epam.mjc.io;
 
 import java.io.*;
-import java.util.Arrays;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class FileReader {
     public static void main(String[] args) {
-        File file = new File("/Users/Admin/IdeaProjects/stage1-module6-io-task01/src/main/resources/Profile.txt");
+        File file = new File("resources/Profile.txt");
         FileReader fileReader = new FileReader();
         Profile profile = fileReader.getDataFromFile(file);
-        System.out.println("Name:" + profile.getName());
-        System.out.println("Age:" + profile.getAge());
-        System.out.println("Email:" + profile.getEmail());
-        System.out.println("Phone:" + profile.getPhone());
+        Logger logger
+                = Logger.getLogger(
+                FileReader.class.getName());
+        logger.log(Level.INFO,"Name:" + profile.getName());
+         logger.log(Level.INFO,"Age:" + profile.getAge());
+         logger.log(Level.INFO,"Email:" + profile.getEmail());
+        logger.log(Level.INFO,"Phone:" + profile.getPhone());
     }
 
     private static String readFileToString(File file) {
@@ -38,7 +38,7 @@ public class FileReader {
         return content.toString();
     }
     private static Profile parseProfileData(String data){
-String lines[] = data.split("\n");
+String [] lines = data.split("\n");
 String name = null;
 int age = 0;
 String email = null;
