@@ -11,34 +11,35 @@ import java.util.logging.Logger;
 
 
 public class FileReader {
-    interface Operationable{
+    interface Operationable {
         String calculate(String x, String y);
     }
+
     public static void main(String[] args) {
-String separator = File.separator;
-String path = separator + "Users" + separator + "Admin" + separator + "IdeaProjects" + separator
-        + "stage1-module6-io-task01" + separator + "src"+separator+"main"+separator + "resources"+separator+
-        "Profile.txt";
+        String separator = File.separator;
+        String path = separator + "Users" + separator + "Admin" + separator + "IdeaProjects" + separator
+                + "stage1-module6-io-task01" + separator + "src" + separator + "main" + separator + "resources" + separator +
+                "Profile.txt";
         File file = new File(path);
         FileReader fileReader = new FileReader();
         Profile profile = fileReader.getDataFromFile(file);
         Operationable operation;
-        operation = (x,y)->  (x+y);
+        operation = (x, y) -> (x + y);
 
         String name = operation.calculate("Name:", profile.getName());
-        String age = operation.calculate("Age:" , String.valueOf(profile.getAge()));
-        String email = operation.calculate("Email:" , profile.getEmail());
-        String phone = operation.calculate("Phone:" , String.valueOf(profile.getPhone()));
+        String age = operation.calculate("Age:", String.valueOf(profile.getAge()));
+        String email = operation.calculate("Email:", profile.getEmail());
+        String phone = operation.calculate("Phone:", String.valueOf(profile.getPhone()));
         Logger logger
                 = Logger.getLogger(
                 FileReader.class.getName());
-        logger.log(Level.INFO,  name);
+        logger.log(Level.INFO, name);
         logger.log(Level.INFO, age);
         logger.log(Level.INFO, email);
-        logger.log(Level.INFO,phone );
+        logger.log(Level.INFO, phone);
     }
 
-    private static String readFileToString(File file) {
+    private  String readFileToString(File file) {
         StringBuilder content = new StringBuilder();
 
         try (BufferedReader reader = new BufferedReader(new java.io.FileReader(file))) {
@@ -52,7 +53,7 @@ String path = separator + "Users" + separator + "Admin" + separator + "IdeaProje
         return content.toString();
     }
 
-    private static Profile parseProfileData(String data) {
+    private  Profile parseProfileData(String data) {
         String[] lines = data.split("\n");
         String name = null;
         int age = 0;
@@ -79,7 +80,7 @@ String path = separator + "Users" + separator + "Admin" + separator + "IdeaProje
         return new Profile(name, age, email, phone);
     }
 
-    public static Profile getDataFromFile(File file) {
+    public  Profile getDataFromFile(File file) {
 
         String fileContent = readFileToString(file);
         Profile profile = parseProfileData(fileContent);
