@@ -14,10 +14,12 @@ public class FileReader {
     interface Operationable{
         String calculate(String x, String y);
     }
-    public static void main(String[] args) throws FileNotFoundException {
-
-        File file = new File("/Users/Admin/IdeaProjects/stage1-module6-io-task01/src/main/resources/Profile.txt");
-        FileInputStream input = new FileInputStream(file);
+    public static void main(String[] args) {
+String separator = File.separator;
+String path = separator + "Users" + separator + "Admin" + separator + "IdeaProjects" + separator
+        + "stage1-module6-io-task01" + separator + "src"+separator+"main"+separator + "resources"+separator+
+        "Profile.txt";
+        File file = new File(path);
         FileReader fileReader = new FileReader();
         Profile profile = fileReader.getDataFromFile(file);
         Operationable operation;
